@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 class Client {
     private static String host = "127.0.0.1";
     private BufferedReader fromServer;
