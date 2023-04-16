@@ -1,18 +1,23 @@
 package network;
+import backend.Messages;
 
 class Message {
-    String type;
-    String input;
+    //    String type;
+    Messages.messageType type;
+    String input1;
+    String input2;
     int number;
     protected Message() {
-        this.type = "";
-        this.input = "";
+        this.type = Messages.messageType.NONE;
+        this.input1 = "";
+        this.input2 = "";
         this.number = 0;
         System.out.println("client-side message created");
     }
-    protected Message(String type, String input, int number) {
+    protected Message(Messages.messageType type, String input1,String input2, int number) {
         this.type = type;
-        this.input = input;
+        this.input1 = input1;
+        this.input2 = input2;
         this.number = number;
         System.out.println("client-side message created");
     }
