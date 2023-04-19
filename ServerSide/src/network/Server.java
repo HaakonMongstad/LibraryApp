@@ -7,12 +7,14 @@ import java.util.Map;
 import java.util.Observable;
 import com.google.gson.Gson;
 
-import backend.Messages;
 import com.google.gson.GsonBuilder;
+
+import database.mongoDB;
 
 class Server extends Observable {
 
     Map<String,String> users = new HashMap<>();
+    mongoDB mongo;
 
     public static void main(String[] args) {
         new Server().runServer();
@@ -20,7 +22,8 @@ class Server extends Observable {
 
     private void runServer() {
         try {
-            users.put("a","b");
+            mongo = new mongoDB();
+            mongo.start();
             setUpNetworking();
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,20 +52,35 @@ class Server extends Observable {
             String temp = "";
             switch (message.type) {
                 case LOGIN:
-                    if (!users.containsKey(message.input1)){
-                        Message send = new Message(Messages.messageType.LOGINFAILED, "","",0);
+                    if (!mongo.userExists(message.input1)){
+                        Message send = new Message(messageType.LOGINFAILED, "","",0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
-                    else if (!users.get(message.input1).equals(message.input2)){
-                        Message send = new Message(Messages.messageType.LOGINFAILED, "","",0);
+                    else if (!mongo.passwordMatch(message.input1, message.input2)){
+                        Message send = new Message(messageType.LOGINFAILED, "","",0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
                     else{
-                        Message send = new Message(Messages.messageType.LOGINSUCCEED, "","",0);
+                        Message send = new Message(messageType.LOGINSUCCEED, "","",0);
+                        GsonBuilder builder = new GsonBuilder();
+                        gson = builder.create();
+                        client.sendToClient(gson.toJson(send));
+                    }
+                    break;
+                case REGISTER:
+                    if (mongo.userExists(message.input1)){
+                        Message send = new Message(messageType.REGISTERFAIL, "","",0);
+                        GsonBuilder builder = new GsonBuilder();
+                        gson = builder.create();
+                        client.sendToClient(gson.toJson(send));
+                    }
+                    else{
+                        mongo.createUser(message.input1, message.input2);
+                        Message send = new Message(messageType.REGISTERSUCCESS, "","",0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));

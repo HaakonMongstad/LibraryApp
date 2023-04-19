@@ -29,6 +29,7 @@ public class Client {
 
 //    public logInBackend backend;
     public GUIController controller;
+    public boolean registerPressed;
 
     public static void main(String[] args) {
         try {
@@ -77,21 +78,19 @@ public class Client {
             public void run() {
                 while (true) {
                     if (logInPressed == true){
-//                        user = consoleInput.nextLine();
-//                        password = consoleInput.nextLine();
-                        Message request = new Message(Messages.messageType.LOGIN,user,password,0);
+                        Message request = new Message(messageType.LOGIN,user,password,0);
                         GsonBuilder builder = new GsonBuilder();
                         Gson gson = builder.create();
                         sendToServer(gson.toJson(request));
                         logInPressed = false;
                     }
-//                    String input = consoleInput.nextLine();
-//                    String[] variables = input.split(",");
-//                    Message request = new Message(variables[0], variables[1],
-//                            Integer.valueOf(variables[2]));
-//                    GsonBuilder builder = new GsonBuilder();
-//                    Gson gson = builder.create();
-//                    sendToServer(gson.toJson(request));
+                    else if(registerPressed){
+                        Message request = new Message(messageType.REGISTER,user,password,0);
+                        GsonBuilder builder = new GsonBuilder();
+                        Gson gson = builder.create();
+                        sendToServer(gson.toJson(request));
+                        registerPressed = false;
+                    }
                 }
             }
         });
@@ -106,12 +105,10 @@ public class Client {
             String temp = "";
             switch (message.type) {
                 case LOGINSUCCEED:
-                    loginSuccess = true;
                     controller.loginSuccess();
                     break;
 
                 case LOGINFAILED:
-                    loginFail = true;
                     break;
             }
         }
