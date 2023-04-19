@@ -17,6 +17,7 @@ import gui.GUIController;
 
 public class Client {
     private static String host = "127.0.0.1";
+    private Socket socketCopy;
     private BufferedReader fromServer;
     private PrintWriter toServer;
     private Scanner consoleInput = new Scanner(System.in);
@@ -53,6 +54,7 @@ public class Client {
     public void setUpNetworking(GUIController controller) throws Exception {
         @SuppressWarnings("resource")
         Socket socket = new Socket(host, 4242);
+        socketCopy = socket;
         System.out.println("Connecting to... " + socket);
         fromServer = new BufferedReader(new
                 InputStreamReader(socket.getInputStream()));
@@ -96,6 +98,14 @@ public class Client {
         });
         readerThread.start();
         writerThread.start();
+    }
+    public void closeSocket(){
+        try {
+            socketCopy.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     protected void processRequest(String input) {
         String output = "Error";

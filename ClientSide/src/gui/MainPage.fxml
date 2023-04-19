@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #333333; -fx-border-width: 10; -fx-border-color: #121212;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea layoutX="200.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0" text="WEEEEEE" />
+      <AnchorPane layoutY="-1.0" prefHeight="123.0" prefWidth="900.0" style="-fx-background-color: #121212;">
+         <children>
+            <Text fill="#bb86fc" layoutX="24.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBRARY" textAlignment="CENTER" wrappingWidth="463.0">
+               <font>
+                  <Font name="Ebrima Bold" size="57.0" />
+               </font>
+            </Text>
+            <TextField layoutX="600.0" layoutY="70.0" prefHeight="39.0" prefWidth="273.0" promptText="Search Books">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="546.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ScrollPane layoutX="545.0" layoutY="121.0" prefHeight="471.0" prefWidth="352.0" style="-fx-background-color: grey;">
+         <content>
+            <GridPane prefHeight="471.0" prefWidth="349.0" style="-fx-background-color: grey;">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="241.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

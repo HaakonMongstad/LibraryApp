@@ -15,8 +15,10 @@ import javafx.scene.control.Button;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import network.Client;
 import backend.logInBackend;
+import javafx.event.EventHandler;
 
 public class GUIController implements Initializable {
 
@@ -60,6 +62,7 @@ public class GUIController implements Initializable {
         }
     }
 
+
     public void loginSuccess(){
         System.out.println("SUCCESS");
         try {
@@ -80,9 +83,8 @@ public class GUIController implements Initializable {
         catch(Exception e){
             e.printStackTrace();
         }
-
-
     }
+
 
 
     @FXML
@@ -107,19 +109,14 @@ public class GUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         assert NewUserButton != null : "fx:id=\"NewUserButton\" was not injected: check your FXML file 'LogInPage.fxml'.";
         assert LogInButton != null : "fx:id=\"LogInButton\" was not injected: check your FXML file 'LogInPage.fxml'.";
-//        if (rb != null){
-//            System.out.println(rb.getBaseBundleName());
-//        }
-//        System.out.println(rb.getBaseBundleName());
-//        if (rb.){
-//            try{
-//                client = new Client();
-//                client.setUpNetworking(this);
+
+//        stage = (Stage) userField.getScene().getWindow();
+//        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//            @Override
+//            public void handle(WindowEvent event) {
+//                client.closeSocket();
 //            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
+//        });
     }
 }
 
