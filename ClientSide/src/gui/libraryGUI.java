@@ -12,6 +12,8 @@ public class libraryGUI extends Application {
     public void start(Stage applicationStage) {
         // TODO: Implement this method
         try{
+            FXMLLoader temp  = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
+
             Parent root= FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
             applicationStage.setScene(new Scene(root));
             applicationStage.show();

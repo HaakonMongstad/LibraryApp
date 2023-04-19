@@ -1,13 +1,13 @@
 package backend;
 
-import gui.GUIController;
+import gui.logInController;
 
 public class logInBackend {
     public boolean login = false;
 
     Thread th;
-    GUIController controller;
-    public logInBackend(GUIController controller){
+    logInController controller;
+    public logInBackend(logInController controller){
         this.controller = controller;
         th = new Thread(new Runnable() {
             @Override

@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #333333; -fx-border-width: 10; -fx-border-color: #121212;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #333333; -fx-border-width: 10; -fx-border-color: #121212;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
    <children>
       <AnchorPane layoutY="-1.0" prefHeight="123.0" prefWidth="900.0" style="-fx-background-color: #121212;">
          <children>
@@ -16,7 +16,7 @@
                   <Font name="Ebrima Bold" size="57.0" />
                </font>
             </Text>
-            <TextField layoutX="600.0" layoutY="70.0" prefHeight="39.0" prefWidth="273.0" promptText="Search Books">
+            <TextField fx:id="itemSearch" layoutX="600.0" layoutY="70.0" onAction="#filterItems" prefHeight="39.0" prefWidth="273.0" promptText="Search Books">
                <font>
                   <Font size="18.0" />
                </font>
@@ -30,7 +30,7 @@
       </AnchorPane>
       <ScrollPane layoutX="545.0" layoutY="121.0" prefHeight="471.0" prefWidth="352.0" style="-fx-background-color: grey;">
          <content>
-            <GridPane prefHeight="471.0" prefWidth="349.0" style="-fx-background-color: grey;">
+            <GridPane fx:id="catalog" prefHeight="471.0" prefWidth="349.0" style="-fx-background-color: grey;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="241.0" />
               </columnConstraints>

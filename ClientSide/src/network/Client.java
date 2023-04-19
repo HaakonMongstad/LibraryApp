@@ -6,14 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import backend.Messages;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import backend.logInBackend;
-
-import backend.Messages;
-import gui.GUIController;
+import gui.logInController;
 
 public class Client {
     private static String host = "127.0.0.1";
@@ -29,7 +25,7 @@ public class Client {
     public boolean loginFail = false;
 
 //    public logInBackend backend;
-    public GUIController controller;
+    public logInController controller;
     public boolean registerPressed;
 
     public static void main(String[] args) {
@@ -51,7 +47,7 @@ public class Client {
     public void setNewUserPressed(){
         newUserPressed = true;
     }
-    public void setUpNetworking(GUIController controller) throws Exception {
+    public void setUpNetworking(logInController controller) throws Exception {
         @SuppressWarnings("resource")
         Socket socket = new Socket(host, 4242);
         socketCopy = socket;

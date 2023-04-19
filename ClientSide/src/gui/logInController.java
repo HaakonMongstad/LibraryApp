@@ -8,24 +8,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import network.Client;
 import backend.logInBackend;
-import javafx.event.EventHandler;
 
-public class GUIController implements Initializable {
-
+public class logInController implements Initializable {
     @FXML
     private ResourceBundle resources;
     @FXML
-    private TextField passField;
+    private PasswordField passField;
 
     @FXML
     private TextField userField;
@@ -48,7 +47,7 @@ public class GUIController implements Initializable {
 
 
 
-    public GUIController() {
+    public logInController() {
         try{
 //            backend = new logInBackend(this);
 //            backend.startBackend();
@@ -66,7 +65,10 @@ public class GUIController implements Initializable {
     public void loginSuccess(){
         System.out.println("SUCCESS");
         try {
-            root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+            root = loader.load();
+            mainController controller = loader.getController();
+            controller.setClient(client);
             stage = (Stage) userField.getScene().getWindow();
 
             Platform.runLater(new Runnable() {
@@ -103,6 +105,7 @@ public class GUIController implements Initializable {
         passField.clear();
         client.setLogInPressed();
     }
+
 
     @FXML
     @Override

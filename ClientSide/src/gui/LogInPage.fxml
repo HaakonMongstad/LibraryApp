@@ -6,10 +6,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logInController">
    <children>
       <TextField fx:id="userField" layoutX="206.0" layoutY="118.0" prefHeight="40.0" prefWidth="260.0" promptText="username" AnchorPane.bottomAnchor="231.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="118.0" />
-      <TextField fx:id="passField" layoutX="206.0" layoutY="204.0" prefHeight="40.0" prefWidth="260.0" promptText="password" AnchorPane.bottomAnchor="145.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="204.0" />
       <ImageView fitHeight="58.0" fitWidth="62.0" layoutX="122.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="231.0" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="420.0" AnchorPane.topAnchor="111.0">
          <image>
             <Image url="@usernamepic.png" />
@@ -30,5 +29,6 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <PasswordField fx:id="passField" layoutX="206.0" layoutY="201.0" prefHeight="40.0" prefWidth="260.0" promptText="password" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="206.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="201.0" />
    </children>
 </AnchorPane>
