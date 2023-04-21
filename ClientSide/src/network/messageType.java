@@ -7,5 +7,6 @@ public enum messageType {
     LOGINSUCCEED,
     REGISTER,
     REGISTERSUCCESS,
-    REGISTERFAIL
+    REGISTERFAIL,
+    LOADCATALOG
 }

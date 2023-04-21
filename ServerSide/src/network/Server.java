@@ -2,18 +2,21 @@ package network;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Observable;
+import java.util.*;
+
 import com.google.gson.Gson;
+
+import org.bson.Document;
 
 import com.google.gson.GsonBuilder;
 
+import com.mongodb.client.FindIterable;
+import database.Item;
 import database.mongoDB;
 
 class Server extends Observable {
 
-    Map<String,String> users = new HashMap<>();
+    ArrayList<Item> items = new ArrayList<>();
     mongoDB mongo;
 
     public static void main(String[] args) {
@@ -53,19 +56,19 @@ class Server extends Observable {
             switch (message.type) {
                 case LOGIN:
                     if (!mongo.userExists(message.input1)){
-                        Message send = new Message(messageType.LOGINFAILED, "","",0);
+                        Message send = new Message(messageType.LOGINFAILED, "","",null,0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
                     else if (!mongo.passwordMatch(message.input1, message.input2)){
-                        Message send = new Message(messageType.LOGINFAILED, "","",0);
+                        Message send = new Message(messageType.LOGINFAILED, "","",null,0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
                     else{
-                        Message send = new Message(messageType.LOGINSUCCEED, "","",0);
+                        Message send = new Message(messageType.LOGINSUCCEED, "","",null,0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
@@ -73,25 +76,34 @@ class Server extends Observable {
                     break;
                 case REGISTER:
                     if (mongo.userExists(message.input1)){
-                        Message send = new Message(messageType.REGISTERFAIL, "","",0);
+                        Message send = new Message(messageType.REGISTERFAIL, "","",null,0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
                     else{
                         mongo.createUser(message.input1, message.input2);
-                        Message send = new Message(messageType.REGISTERSUCCESS, "","",0);
+                        Message send = new Message(messageType.REGISTERSUCCESS, "","",null,0);
                         GsonBuilder builder = new GsonBuilder();
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
                     break;
-//                case "lower":
-//                    temp = message.input.toLowerCase();
-//                    break;
-//                case "strip":
-//                    temp = message.input.replace(" ", "");
-//                    break;
+                case LOADCATALOG:
+                    items = new ArrayList<>();
+                    FindIterable<Document> docs = mongoDB.itemCollection.find();
+                    Iterator it = docs.iterator();
+                    while(it.hasNext()){
+                        Document doc = (Document) it.next();
+                        if (doc.get("type").equals(message.input1)) {
+                            items.add(new Item((String) doc.get("type"),(String) doc.get("title"), (String) doc.get("author"), (String) doc.get("length"), (String) doc.get("summary"), (String) doc.get("img")));
+                        }
+                    }
+                    Message send = new Message(messageType.LOADCATALOG, message.input1, "",items,0);
+                    GsonBuilder builder = new GsonBuilder();
+                    gson = builder.create();
+                    client.sendToClient(gson.toJson(send));
+                    break;
             }
 //            output = "";
 //            for (int i = 0; i < message.number; i++) {

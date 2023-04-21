@@ -1,5 +1,6 @@
 package network;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import gui.logInController;
+import gui.mainController;
 
 public class Client {
     private static String host = "127.0.0.1";
@@ -25,8 +27,11 @@ public class Client {
     public boolean loginFail = false;
 
 //    public logInBackend backend;
-    public logInController controller;
+    public logInController controller1;
+    public mainController controller2;
     public boolean registerPressed;
+    public boolean messageCreated = false;
+    public Message request = null;
 
     public static void main(String[] args) {
         try {
@@ -39,6 +44,12 @@ public class Client {
     public void setUserPassword(String user, String password){
         this.user = user;
         this.password = password;
+    }
+    public void setMessage(messageType type, String input1, String input2, ArrayList<backend.Item> items, int number){
+        request = new Message(type,input1,input2,items,number);
+    }
+    public void setMessageCreated(){
+        messageCreated = true;
     }
 
     public void setLogInPressed(){
@@ -55,7 +66,7 @@ public class Client {
         fromServer = new BufferedReader(new
                 InputStreamReader(socket.getInputStream()));
         toServer = new PrintWriter(socket.getOutputStream());
-        this.controller = controller;
+        this.controller1 = controller;
         Thread readerThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -75,20 +86,26 @@ public class Client {
             @Override
             public void run() {
                 while (true) {
-                    if (logInPressed == true){
-                        Message request = new Message(messageType.LOGIN,user,password,0);
+                    if (messageCreated == true){
                         GsonBuilder builder = new GsonBuilder();
                         Gson gson = builder.create();
                         sendToServer(gson.toJson(request));
-                        logInPressed = false;
+                        messageCreated = false;
                     }
-                    else if(registerPressed){
-                        Message request = new Message(messageType.REGISTER,user,password,0);
-                        GsonBuilder builder = new GsonBuilder();
-                        Gson gson = builder.create();
-                        sendToServer(gson.toJson(request));
-                        registerPressed = false;
-                    }
+//                    if (logInPressed == true){
+//                        Message request = new Message(messageType.LOGIN,user,password,null,0);
+//                        GsonBuilder builder = new GsonBuilder();
+//                        Gson gson = builder.create();
+//                        sendToServer(gson.toJson(request));
+//                        logInPressed = false;
+//                    }
+//                    else if(registerPressed){
+//                        Message request = new Message(messageType.REGISTER,user,password,null,0);
+//                        GsonBuilder builder = new GsonBuilder();
+//                        Gson gson = builder.create();
+//                        sendToServer(gson.toJson(request));
+//                        registerPressed = false;
+//                    }
                 }
             }
         });
@@ -111,10 +128,13 @@ public class Client {
             String temp = "";
             switch (message.type) {
                 case LOGINSUCCEED:
-                    controller.loginSuccess();
+                    controller1.loginSuccess();
                     break;
 
                 case LOGINFAILED:
+                    break;
+                case LOADCATALOG:
+                    controller2.loadCatalog(message.items);
                     break;
             }
         }

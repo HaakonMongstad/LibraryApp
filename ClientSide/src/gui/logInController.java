@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import network.Client;
 import backend.logInBackend;
+import network.messageType;
 
 public class logInController implements Initializable {
     @FXML
@@ -69,6 +70,7 @@ public class logInController implements Initializable {
             root = loader.load();
             mainController controller = loader.getController();
             controller.setClient(client);
+            controller.setClientController();
             stage = (Stage) userField.getScene().getWindow();
 
             Platform.runLater(new Runnable() {
@@ -91,19 +93,21 @@ public class logInController implements Initializable {
 
     @FXML
     void NewUserClicked(ActionEvent event) {
-        client.setUserPassword(userField.getText(),passField.getText());
+//        client.setUserPassword(userField.getText(),passField.getText());
+        client.setMessage(messageType.REGISTER,userField.getText(),passField.getText(),null,0);
         userField.clear();
         passField.clear();
-        client.registerPressed = true;
+        client.setMessageCreated();
 
     }
 
     @FXML
     void LogInClicked(ActionEvent event) {
-        client.setUserPassword(userField.getText(),passField.getText());
+        //client.setUserPassword(userField.getText(),passField.getText());
+        client.setMessage(messageType.LOGIN,userField.getText(),passField.getText(),null,0);
         userField.clear();
         passField.clear();
-        client.setLogInPressed();
+        client.setMessageCreated();
     }
 
 

@@ -18,6 +18,7 @@ public class mongoDB {
     public static MongoClient mongo;
     public static MongoDatabase database;
     public static MongoCollection<Document> userCollection;
+    public static MongoCollection<Document> itemCollection;
     private static final String URI =
             "mongodb+srv://Haakon:Trmn8r01@library.bcdyb5u.mongodb.net/?retryWrites=true&w=majority";
     private static final String DB = "Library";
@@ -26,6 +27,8 @@ public class mongoDB {
         mongo = MongoClients.create(URI);
         database = mongo.getDatabase(DB);
         userCollection = database.getCollection(COLLECTION);
+        itemCollection = database.getCollection("items");
+
 //ping();
  //       update();
 //findAndRead();
