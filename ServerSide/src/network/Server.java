@@ -1,5 +1,6 @@
 package network;
 
+import java.io.FileInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -18,6 +19,9 @@ class Server extends Observable {
 
     ArrayList<Item> items = new ArrayList<>();
     mongoDB mongo;
+    Iterator it;
+    FindIterable<Document> docs;
+    Document doc;
 
     public static void main(String[] args) {
         new Server().runServer();
@@ -90,14 +94,17 @@ class Server extends Observable {
                     }
                     break;
                 case LOADCATALOG:
-                    items = new ArrayList<>();
-                    FindIterable<Document> docs = mongoDB.itemCollection.find();
-                    Iterator it = docs.iterator();
+                    items.clear();
+                   // items = new ArrayList<>();
+                    docs = mongoDB.itemCollection.find();
+                    it = docs.iterator();
                     while(it.hasNext()){
-                        Document doc = (Document) it.next();
+                        doc = (Document) it.next();
                         if (doc.get("type").equals(message.input1)) {
-                            items.add(new Item((String) doc.get("type"),(String) doc.get("title"), (String) doc.get("author"), (String) doc.get("length"), (String) doc.get("summary"), (String) doc.get("img")));
+                            items.add(new Item((String) doc.get("type"),(String) doc.get("title"), (String) doc.get("author"),
+                                    (String) doc.get("length"), (String) doc.get("summary"), new FileInputStream("C:/Users/skjal/OneDrive/OneDrive Documents/GitHub/sp-23-final-project-HaakonMongstad/ServerSide/src/network/DuneCover.png")));
                         }
+//                        new FileInputStream(doc.get("img") + ".png")
                     }
                     Message send = new Message(messageType.LOADCATALOG, message.input1, "",items,0);
                     GsonBuilder builder = new GsonBuilder();

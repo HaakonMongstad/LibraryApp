@@ -135,6 +135,7 @@ public class Client {
                     break;
                 case LOADCATALOG:
                     controller2.loadCatalog(message.items);
+                    System.out.println("HEREE2");
                     break;
             }
         }

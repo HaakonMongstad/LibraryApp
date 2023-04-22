@@ -16,31 +16,22 @@
                   <Font name="Ebrima Bold" size="57.0" />
                </font>
             </Text>
-            <TextField fx:id="itemSearch" layoutX="600.0" layoutY="70.0" onAction="#filterItems" prefHeight="39.0" prefWidth="273.0" promptText="Search Books">
+            <TextField fx:id="itemSearch" layoutX="543.0" layoutY="70.0" onAction="#filterItems" prefHeight="39.0" prefWidth="228.0" promptText="Search Books" AnchorPane.topAnchor="70.0">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </TextField>
-            <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="546.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="497.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@search.png" />
                </image>
             </ImageView>
-            <ChoiceBox fx:id="typeSelect" layoutX="600.0" layoutY="14.0" prefHeight="39.0" prefWidth="273.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="27.0" />
+            <ChoiceBox fx:id="typeSelect" layoutX="780.0" layoutY="62.0" prefHeight="39.0" prefWidth="99.0" AnchorPane.topAnchor="70.0" />
          </children>
       </AnchorPane>
-      <ScrollPane layoutX="545.0" layoutY="121.0" prefHeight="471.0" prefWidth="352.0" style="-fx-background-color: grey;">
+      <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="493.0" layoutY="121.0" prefHeight="471.0" prefWidth="407.0" style="-fx-background-color: grey;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="483.0" AnchorPane.rightAnchor="10.0">
          <content>
-            <GridPane fx:id="catalog" prefHeight="471.0" prefWidth="349.0" style="-fx-background-color: grey;">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="241.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
+            <AnchorPane fx:id="catalog" prefHeight="469.0" prefWidth="357.0" style="-fx-background-color: grey;" />
          </content>
       </ScrollPane>
    </children>
