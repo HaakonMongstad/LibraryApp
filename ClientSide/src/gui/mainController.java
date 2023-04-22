@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -70,23 +71,28 @@ public class mainController {
               double offset = 5;
               for (Item item : items) {
 
-                  Label title = new Label("Title: " + item.title);
-                  title.relocate(20,5);
-                  Button checkOut = new Button("Check Out");
-                  checkOut.relocate(200, 5);
-                  Label author = new Label("Author: " + item.author);
-                  author.relocate(20, 25);
-                  Label length = new Label("Length: " + item.pages);
-                  length.relocate(20, 45);
-                  Image img = new Image(item.img);
-                  ImageView imgView = new ImageView(img);
-                  imgView.relocate(200,25);
-                  AnchorPane page = new AnchorPane(title,checkOut,author,length);
-                  page.relocate(10, 5+ offset);
-                  page.setBackground(new Background(new BackgroundFill(Color.web("bb86fc"),
-                          new CornerRadii(20), new Insets(0))));
-                  catalog.getChildren().add(page);
-                  offset = offset + 120;
+                  try {
+                      Label title = new Label("Title: " + item.title);
+                      title.relocate(20, 5);
+                      Button checkOut = new Button("Check Out");
+                      checkOut.relocate(200, 5);
+                      Label author = new Label("Author: " + item.author);
+                      author.relocate(20, 25);
+                      Label length = new Label("Length: " + item.pages);
+                      length.relocate(20, 45);
+                      ByteArrayInputStream is = new ByteArrayInputStream(item.img);
+                      ImageView imgView = new ImageView(new Image(is));
+                      imgView.relocate(200, 25);
+                      AnchorPane page = new AnchorPane(title, checkOut, author, length,imgView);
+                      page.relocate(10, 5 + offset);
+                      page.setBackground(new Background(new BackgroundFill(Color.web("bb86fc"),
+                              new CornerRadii(20), new Insets(0))));
+                      catalog.getChildren().add(page);
+                      offset = offset + 120;
+                  }
+                  catch(Exception e){
+
+                  }
               }
           }
 //              catalog.getChildren().clear();

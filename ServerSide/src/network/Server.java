@@ -15,6 +15,9 @@ import com.mongodb.client.FindIterable;
 import database.Item;
 import database.mongoDB;
 
+import javafx.scene.image.Image;
+import org.bson.types.Binary;
+
 class Server extends Observable {
 
     ArrayList<Item> items = new ArrayList<>();
@@ -100,9 +103,16 @@ class Server extends Observable {
                     it = docs.iterator();
                     while(it.hasNext()){
                         doc = (Document) it.next();
+                        byte[] b = null;
                         if (doc.get("type").equals(message.input1)) {
+                            try (FileInputStream stream = new FileInputStream("C:/Users/skjal/OneDrive/OneDrive Documents/GitHub/sp-23-final-project-HaakonMongstad/ServerSide/src/network/DuneCover.png");) {
+                                b = new byte[stream.available()];
+                                stream.read(b);
+//                                doc.put("image", new Binary(b));
+                            } catch (Exception e) {
+                            }
                             items.add(new Item((String) doc.get("type"),(String) doc.get("title"), (String) doc.get("author"),
-                                    (String) doc.get("length"), (String) doc.get("summary"), new FileInputStream("C:/Users/skjal/OneDrive/OneDrive Documents/GitHub/sp-23-final-project-HaakonMongstad/ServerSide/src/network/DuneCover.png")));
+                                    (String) doc.get("length"), (String) doc.get("summary"), b));
                         }
 //                        new FileInputStream(doc.get("img") + ".png")
                     }

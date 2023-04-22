@@ -3,6 +3,7 @@ package database;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import javafx.scene.image.Image;
 
 public class Item implements Serializable {
     public String type;
@@ -10,11 +11,11 @@ public class Item implements Serializable {
     public String author;
     public String pages;
     public String summary;
-    public FileInputStream img;
+    public byte[] img;
     public Item(){
         this.type = "item";
     }
-    public Item(String item,String title, String author, String pages, String summary, FileInputStream img){
+    public Item(String item,String title, String author, String pages, String summary, byte[] img){
         this.type = item;
         this.title = title;
         this.author = author;
