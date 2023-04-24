@@ -11,15 +11,17 @@ public class Item implements Serializable {
     public String pages;
     public String summary;
     public byte[] img;
+    public int qnt;
     public Item(){
         this.type = "item";
     }
-    public Item(String item,String title, String author, String pages, String summary, byte[] img){
+    public Item(String item,String title, String author, String pages, String summary, byte[] img,int qnt){
         this.type = item;
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.summary = summary;
         this.img = img;
+        this.qnt = qnt;
     }
 }

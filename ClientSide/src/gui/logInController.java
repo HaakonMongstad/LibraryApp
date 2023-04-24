@@ -1,8 +1,11 @@
 package gui;
 
+import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import backend.Item;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import network.Client;
-import backend.logInBackend;
 import network.messageType;
 
 public class logInController implements Initializable {
@@ -39,7 +41,6 @@ public class logInController implements Initializable {
     private Button LogInButton;
 
     static Client client;
-    logInBackend backend;
 
     private Stage stage;
     private Scene scene;
@@ -63,7 +64,7 @@ public class logInController implements Initializable {
     }
 
 
-    public void loginSuccess(){
+    public void loginSuccess(String user, ArrayList<Item> items){
         System.out.println("SUCCESS");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
@@ -71,6 +72,7 @@ public class logInController implements Initializable {
             mainController controller = loader.getController();
             controller.setClient(client);
             controller.setClientController();
+            controller.setUpController(user);
             stage = (Stage) userField.getScene().getWindow();
 
             Platform.runLater(new Runnable() {
@@ -78,6 +80,7 @@ public class logInController implements Initializable {
                 public void run() {
                     stage.setScene(new Scene(root));
                     stage.sizeToScene();
+//                    controller.setUpController(user,items);
                 }
             });
 //            scene = new Scene(root);
@@ -89,7 +92,9 @@ public class logInController implements Initializable {
         }
     }
 
-
+    public void sound(){
+        Toolkit.getDefaultToolkit().beep();
+    }
 
     @FXML
     void NewUserClicked(ActionEvent event) {
@@ -103,7 +108,7 @@ public class logInController implements Initializable {
 
     @FXML
     void LogInClicked(ActionEvent event) {
-        //client.setUserPassword(userField.getText(),passField.getText());
+        client.setUserPassword(userField.getText(),passField.getText());
         client.setMessage(messageType.LOGIN,userField.getText(),passField.getText(),null,0);
         userField.clear();
         passField.clear();

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import backend.Item;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -92,20 +93,6 @@ public class Client {
                         sendToServer(gson.toJson(request));
                         messageCreated = false;
                     }
-//                    if (logInPressed == true){
-//                        Message request = new Message(messageType.LOGIN,user,password,null,0);
-//                        GsonBuilder builder = new GsonBuilder();
-//                        Gson gson = builder.create();
-//                        sendToServer(gson.toJson(request));
-//                        logInPressed = false;
-//                    }
-//                    else if(registerPressed){
-//                        Message request = new Message(messageType.REGISTER,user,password,null,0);
-//                        GsonBuilder builder = new GsonBuilder();
-//                        Gson gson = builder.create();
-//                        sendToServer(gson.toJson(request));
-//                        registerPressed = false;
-//                    }
                 }
             }
         });
@@ -128,14 +115,46 @@ public class Client {
             String temp = "";
             switch (message.type) {
                 case LOGINSUCCEED:
-                    controller1.loginSuccess();
+                    controller1.loginSuccess(message.input1,message.items);
+                    controller2.displayInventory(message.items);
                     break;
-
                 case LOGINFAILED:
+                    controller1.sound();
                     break;
                 case LOADCATALOG:
                     controller2.loadCatalog(message.items);
                     System.out.println("HEREE2");
+                    break;
+                case CHECKOUTFAIL:
+                    controller2.sound();
+                    break;
+                case CHECKOUTSUCCESS:
+                    controller2.displayInventory(message.items);
+                    break;
+                case UPDATE:
+                    System.out.println(message.items);
+                    controller2.loadCatalog(message.items);
+                    break;
+                case RESERVESUCCESS:
+                    ArrayList<String> reservations = new ArrayList<>();
+                    message.items.forEach(item -> reservations.add(item.title));
+                    System.out.println(reservations);
+                    controller2.setReservations(reservations);
+                    break;
+                case UPDATEONE:
+                    System.out.println(message.input1 + " " + user);
+                    if (message.input1.equals(user)){
+                        controller2.displayInventory(message.items);
+                    }
+                    break;
+                case RESERVEONE:
+                    System.out.println(message.input1 + " " + user);
+                    if(message.input1.equals(user)){
+                        ArrayList<String> reservations2 = new ArrayList<>();
+                        message.items.forEach(item -> reservations2.add(item.title));
+                        System.out.println(reservations2);
+                        controller2.setReservations(reservations2);
+                    }
                     break;
             }
         }

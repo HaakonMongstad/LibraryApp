@@ -16,7 +16,7 @@
                   <Font name="Ebrima Bold" size="57.0" />
                </font>
             </Text>
-            <TextField fx:id="itemSearch" layoutX="543.0" layoutY="70.0" onAction="#filterItems" prefHeight="39.0" prefWidth="228.0" promptText="Search Books" AnchorPane.topAnchor="70.0">
+            <TextField fx:id="itemSearch" layoutX="543.0" layoutY="70.0" onAction="#filterItems" prefHeight="39.0" prefWidth="228.0" promptText="Search" AnchorPane.topAnchor="70.0">
                <font>
                   <Font size="16.0" />
                </font>
@@ -29,10 +29,25 @@
             <ChoiceBox fx:id="typeSelect" layoutX="780.0" layoutY="62.0" prefHeight="39.0" prefWidth="99.0" AnchorPane.topAnchor="70.0" />
          </children>
       </AnchorPane>
-      <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="493.0" layoutY="121.0" prefHeight="471.0" prefWidth="407.0" style="-fx-background-color: grey;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="483.0" AnchorPane.rightAnchor="10.0">
+      <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="470.0" layoutY="165.0" prefHeight="427.0" prefWidth="430.0" style="-fx-background-color: grey;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="10.0">
          <content>
-            <AnchorPane fx:id="catalog" prefHeight="469.0" prefWidth="357.0" style="-fx-background-color: grey;" />
+            <AnchorPane fx:id="catalog" prefHeight="469.0" prefWidth="403.0" style="-fx-background-color: grey;" />
          </content>
       </ScrollPane>
+      <ScrollPane hbarPolicy="NEVER" layoutX="20.0" layoutY="166.0" prefHeight="427.0" prefWidth="434.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="456.0">
+        <content>
+          <AnchorPane fx:id="inventory" prefHeight="467.0" prefWidth="412.0" style="-fx-background-color: grey;" />
+        </content>
+      </ScrollPane>
+      <Label layoutX="165.0" layoutY="122.0" text="Your Items" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="588.0" layoutY="122.0" text="Library Catalog" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
