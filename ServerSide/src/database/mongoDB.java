@@ -29,7 +29,7 @@ public class mongoDB {
     public static MongoCollection<Document> itemCollection;
     public static MongoCollection<Document> userInventory;
      private static final String URI =
-            "mongodb+srv://Haakon:Trmn8r01@library.bcdyb5u.mongodb.net/?retryWrites=true&w=majority";
+            ""; // ADD MongoDB connection key
     private static final String DB = "Library";
     private static final String COLLECTION = "users";
     public static void start() {
