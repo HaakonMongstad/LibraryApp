@@ -18,5 +18,6 @@ public enum messageType {
     RESERVESUCCESS,
     UNRESERVE,
     UPDATEONE,
-    RESERVEONE
+    RESERVEONE,
+    SEARCH
 }

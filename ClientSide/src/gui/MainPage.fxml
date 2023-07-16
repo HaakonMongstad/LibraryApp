@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #333333; -fx-border-width: 10; -fx-border-color: #121212;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainController">
    <children>
-      <AnchorPane layoutY="-1.0" prefHeight="123.0" prefWidth="900.0" style="-fx-background-color: #121212;">
+      <AnchorPane layoutY="7.0" prefHeight="123.0" prefWidth="900.0" style="-fx-background-color: #121212;">
          <children>
             <Text fill="#bb86fc" layoutX="24.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBRARY" textAlignment="CENTER" wrappingWidth="463.0">
                <font>
@@ -27,6 +27,7 @@
                </image>
             </ImageView>
             <ChoiceBox fx:id="typeSelect" layoutX="780.0" layoutY="62.0" prefHeight="39.0" prefWidth="99.0" AnchorPane.topAnchor="70.0" />
+            <Text fx:id="username" fill="WHITE" layoutX="672.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
          </children>
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" hmax="0.0" layoutX="470.0" layoutY="165.0" prefHeight="427.0" prefWidth="430.0" style="-fx-background-color: grey;" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="460.0" AnchorPane.rightAnchor="10.0">

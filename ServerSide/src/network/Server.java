@@ -218,7 +218,7 @@ class Server extends Observable {
                                     stream.read(b);
                                 } catch (Exception e) {
                                 }
-                                if (message.items.get(0).title != s) {
+                                if (!(message.items.get(0).title.equals(s))) {
                                     titleToItem.add(new Item((String) d.get("type"), (String) d.get("title"), (String) d.get("author"),
                                             (String) d.get("length"), (String) d.get("summary"), b, (int) d.get("qnt")));
                                 }
@@ -290,7 +290,7 @@ class Server extends Observable {
                         gson = builder.create();
                         client.sendToClient(gson.toJson(send));
                     }
-                    if((((ArrayList<String>)mongo.findUser(message.input1).get("inventory")).size() +
+                    else if((((ArrayList<String>)mongo.findUser(message.input1).get("inventory")).size() +
                             ((ArrayList<String>)mongo.findUser(message.input1).get("inventory")).size()) >= 3){
                         send = new Message(messageType.CHECKOUTFAIL, "","",null,0);
                         builder = new GsonBuilder();
@@ -370,6 +370,28 @@ class Server extends Observable {
                     client.sendToClient(gson.toJson(send));
                     client.sendToClient(gson.toJson(update));
                     break;
+                case SEARCH:
+                    items.clear();
+                    docs = mongoDB.itemCollection.find();
+                    it = docs.iterator();
+                    while(it.hasNext()){
+                        doc = (Document)it.next();
+                        byte[] b = null;
+                        try (FileInputStream stream = new FileInputStream("C:/Users/skjal/OneDrive/OneDrive Documents/GitHub/sp-23-final-project-HaakonMongstad/ServerSide/src/network/" + doc.get("img") + ".png")) {
+                            b = new byte[stream.available()];
+                            stream.read(b);
+                        } catch (Exception e) {
+                        }
+                        if (message.input1.equals((String)doc.get("title"))){
+                            items.add(new Item((String) doc.get("type"),(String) doc.get("title"), (String) doc.get("author"),
+                                    (String) doc.get("length"), (String) doc.get("summary"), b,(int)doc.get("qnt")));
+                        }
+                    }
+                    send = new Message(messageType.LOADCATALOG, "","",items,0);
+                    builder = new GsonBuilder();
+                    gson = builder.create();
+                    client.sendToClient(gson.toJson(send));
+
             }
 
         } catch (Exception e) {

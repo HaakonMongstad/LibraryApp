@@ -34,6 +34,8 @@ import javax.swing.text.Element;
 import javafx.scene.image.ImageView;
 
 public class mainController {
+    @FXML
+    private Text username;
 
     @FXML
     private ResourceBundle resources;
@@ -68,6 +70,8 @@ public class mainController {
 
     @FXML
     void filterItems(ActionEvent event) {
+        client.setMessage(messageType.SEARCH, itemSearch.getText(), "", null,0);
+        client.setMessageCreated();
 //        System.out.println("HI");
 //        TextArea temp = new TextArea();
 //        temp.appendText("HELLOOO");
@@ -90,6 +94,7 @@ public class mainController {
         Platform.runLater(new Runnable() {
           @Override
           public void run() {
+              username.setText(userName);
               catalog.getChildren().clear();
               double offset = 5;
               for (Item item : items) {
@@ -147,9 +152,17 @@ public class mainController {
                       Label quantity = new Label(item.qnt + " Remaining");
                       quantity.relocate(180,82);
                       quantity.setTextFill(Paint.valueOf("#cf6679"));
+                      Label author;
+                      if (item.type.equals("Book")) {
+                          author = new Label("Author: " + item.author);
+                          author.relocate(100, 40);
+                      }
+                      else{
+                          author = new Label("Director: " + item.author);
+                          author.relocate(100,40);
+                      }
 
-                      Label author = new Label("Author: " + item.author);
-                      author.relocate(100, 40);
+
                       Label length = new Label("Length: " + item.pages);
                       length.relocate(100, 60);
                       ByteArrayInputStream is = new ByteArrayInputStream(item.img);
@@ -233,8 +246,15 @@ public class mainController {
                                 handleReturnItem(item);
                             }
                         });
-                        Label author = new Label("Author: " + item.author);
-                        author.relocate(100, 40);
+                        Label author;
+                        if (item.type.equals("Book")) {
+                            author = new Label("Author: " + item.author);
+                            author.relocate(100, 40);
+                        }
+                        else{
+                            author = new Label("Director: " + item.author);
+                            author.relocate(100,40);
+                        }
                         Label length = new Label("Length: " + item.pages);
                         length.relocate(100, 60);
                         ByteArrayInputStream is = new ByteArrayInputStream(item.img);
